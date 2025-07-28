@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .login-card {
+            padding: 2rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 420px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        input[type="text"],
+        input[type="password"] {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            color: #212529;
+        }
+        .error-message {
+            color: #d90429;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        button {
+            margin-top: 1rem;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 0.98rem;
+        }
+        .signup-link a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<article class="login-card">
+    <h2>Welcome Back</h2>
+    <form method="post" th:action="@{/login}">
+        <label>
+            Username
+            <input type="text" name="username" placeholder="Your username" required>
+        </label>
+
+        <label>
+            Password
+            <input type="password" name="password" placeholder="Your password" required>
+        </label>
+
+        <button type="submit" class="contrast">Login</button>
+
+        <p th:if="${param.error}" class="error-message">Invalid username or password</p>
+    </form>
+    <div class="signup-link">
+        Don’t have an account?
+        <a th:href="@{/signup}">Sign Up</a>
+    </div>
+</article>
+
+</body>
+</html>
