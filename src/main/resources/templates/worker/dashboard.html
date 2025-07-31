@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>Worker Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        body { background-color: #f9fafb; }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .dashboard { max-width: 1000px; margin: 2rem auto; }
+        .welcome {
+            padding: 1.5rem 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+        }
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .card {
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .card.clickable {
+            cursor: pointer;
+            transition: box-shadow .2s;
+        }
+        .card.clickable:hover {
+            box-shadow: 0 6px 20px rgba(0, 93, 198, 0.09);
+        }
+        .card a {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Worker Dashboard</h1>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="outline">Logout</button>
+    </form>
+</header>
+
+<main class="dashboard container">
+    <section class="welcome">
+        <h2>Welcome, <span th:text="${user.name}">Worker</span>!</h2>
+        <p>Here’s an overview of your profile and quick access to your work logs:</p>
+    </section>
+
+    <section class="actions">
+        <div class="card">
+            <h3>My Profile</h3>
+            <p><strong>Name:</strong> <span th:text="${user.name}">Name</span></p>
+            <p><strong>Surname:</strong> <span th:text="${user.surname}">Surname</span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}">Email</span></p>
+            <p><strong>Status:</strong> <span th:text="${user.status}">Status</span></p>
+        </div>
+
+
+        <div class="card clickable" onclick="window.location.href='/worker/worklogs'">
+            <h3>My Work Logs</h3>
+            <p>View and add your new work log entries.</p>
+            <a href="/worker/worklogs" role="button" class="primary">Go to My Work Logs</a>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

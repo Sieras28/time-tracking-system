@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Work Log</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.05); }
+        h1 { margin: 0; font-size: 1.5rem; }
+        form { max-width: 600px; margin: 2rem auto; }
+    </style>
+</head>
+<body th:object="${workLog}">
+
+<header>
+    <h1>Add Work Log</h1>
+    <a href="/worker/dashboard" role="button" class="outline">← Back</a>
+</header>
+
+<main class="container">
+
+    <form th:action="@{/worker/worklogs/add}" th:object="${workLog}" method="post">
+
+        <label>Date:
+            <input type="date" th:field="*{date}" required>
+        </label>
+
+        <label>Hours Worked:
+            <input type="number" th:field="*{hours}" required min="1" max="24">
+        </label>
+
+        <label>Project:
+            <select th:field="*{project}" required>
+                <option value="" hidden>Select Project</option>
+                <!-- Dynamically populate the projects -->
+                <option th:each="project : ${myProjects}"
+                        th:value="${project.id}"
+                        th:text="${project.name}">Project Name</option>
+            </select>
+        </label>
+
+
+        <label>Comment:
+            <textarea th:field="*{comment}" placeholder="Optional comment about the work" rows="4"></textarea>
+        </label>
+
+        <label>Upload Image (optional):
+            <input type="file" th:field="*{imagePath}">
+        </label>
+
+        <button type="submit" class="primary">Save Work Log</button>
+    </form>
+</main>
+
+</body>
+</html>

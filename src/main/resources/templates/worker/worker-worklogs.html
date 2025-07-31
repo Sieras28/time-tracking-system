@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>My Work Logs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        body { background-color: #f9fafb; }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .content { max-width: 1100px; margin: 2rem auto; }
+        table {
+            width: 100%;
+            margin-top: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td { text-align: left; }
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .top-actions a {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Workers</h1>
+    <a href="/worker/dashboard" role="button" class="outline">&larr; Dashboard</a>
+</header>
+
+<main class="content container">
+    <div class="top-actions">
+        <a href="/worker/worklogs/add" role="button" class="primary">+ Add Work Log</a>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Project</th>
+            <th>Hours</th>
+            <th>Date</th>
+            <th>Comment</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="workLog : ${myWorkLogs}">
+            <td th:text="${workLog.project.name}">Project Name</td>
+            <td th:text="${workLog.hours}">0</td>
+            <td th:text="${workLog.date}">YYYY-MM-DD</td>
+            <td th:text="${workLog.comment}">No comment</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+</body>
+</html>
