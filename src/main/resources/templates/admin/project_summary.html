@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Summary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,.05);
+        }
+        h1 { margin: 0; font-size: 1.5rem; }
+        .summary-details { margin-top: 2rem; }
+        table { width: 100%; border-collapse: collapse; }
+        table th, table td { padding: 8px 12px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Project Summary: <span th:text="${project.name}">Project Name</span></h1>
+    <a href="/admin/projects" role="button" class="outline">← Back to Projects</a>
+</header>
+
+<main class="container">
+    <div class="summary-details">
+        <h2>Summary for Project</h2>
+        <p><strong>Total Hours Worked:</strong> <span th:text="${totalHours}">Total Hours</span></p>
+        <p><strong>Approved Work Logs:</strong> <span th:text="${approvedLogs}">Approved Logs</span></p>
+        <p><strong>Pending Work Logs:</strong> <span th:text="${pendingLogs}">Pending Logs</span></p>
+
+        <h3>Work Logs</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Worker</th>
+                <th>Date</th>
+                <th>Hours Worked</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log : ${workLogs}">
+                <td th:text="${log.user.name}">Worker Name</td>
+                <td th:text="${log.date}">Date</td>
+                <td th:text="${log.hours}">Hours</td>
+                <td th:text="${log.status}">Status</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>

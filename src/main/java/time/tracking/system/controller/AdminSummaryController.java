@@ -86,7 +86,7 @@ public class AdminSummaryController {
         model.addAttribute("pendingLogs", pendingLogs);
         model.addAttribute("workLogs", workLogs);
 
-        return "admin/worker_summary";
+        return "worker_summarrerery";
     }
 
     // View summaries per Project

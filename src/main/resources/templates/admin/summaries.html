@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Worker Summaries</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        header{display:flex;justify-content:space-between;align-items:center;
+            padding:1rem 2rem;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.05);}
+        h1{margin:0;font-size:1.5rem;}
+        .card{background:#fff;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.05);
+            padding:2rem;max-width:450px;}
+        .summary-details{margin-top:2rem;}
+        table{width:100%;border-collapse:collapse;}
+        th,td{padding:8px 12px;border:1px solid #ddd;}
+
+        .picker-form{
+            display:flex;
+            gap:1rem;          /* space between items   */
+            align-items:center;
+            width:100%;        /* stretch full row      */
+        }
+        /* 80 % width */
+        .picker-form select{
+            flex:0 0 80%;
+            min-width:200px;   /* keep it usable on small screens */
+        }
+        /* 20 % width */
+        .picker-form button{
+            flex:0 0 20%;
+            white-space:nowrap;
+            min-width:110px;   /* prevents button from shrinking too far */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Admin – Worker Summaries</h1>
+    <a href="/dashboard/admin" role="button" class="outline">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+
+    <!-- picker/form -->
+    <div class="">
+        <h2>Select Worker</h2>
+        <form class="picker-form" method="get" th:action="@{/admin/summaries}">
+            <select name="workerId" required>
+                <option value="" hidden th:selected="${worker == null}">Choose a worker</option>
+                <option th:each="w : ${workers}"
+                        th:value="${w.id}"
+                        th:text="${w.name}"
+                        th:selected="${worker != null and w.id == worker.id}">
+                </option>
+            </select>
+            <button type="submit" class="primary">View Summary</button>
+        </form>
+    </div>
+
+    <!-- summary (shown only when a worker was selected) -->
+    <div class="summary-details" th:if="${worker != null}">
+        <h2 th:text="'Summary for ' + ${worker.name}"></h2>
+        <p><strong>Total Hours Worked:</strong> <span th:text="${totalHours}">0</span></p>
+        <p><strong>Approved Work Logs:</strong> <span th:text="${approvedLogs}">0</span></p>
+        <p><strong>Pending Work Logs:</strong> <span th:text="${pendingLogs}">0</span></p>
+
+        <h3>Work Logs</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Project</th>
+                <th>Date</th>
+                <th>Hours</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log : ${workLogs}">
+                <td th:text="${log.project.name}">Project</td>
+                <td th:text="${log.date}">Date</td>
+                <td th:text="${log.hours}">0</td>
+                <td th:text="${log.status}">Status</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+</body>
+</html>
