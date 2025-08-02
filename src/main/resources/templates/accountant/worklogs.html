@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Work Logs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        body { background: #fff; }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,.05);
+        }
+        h1 { margin: 0; font-size: 2rem; font-weight: 700; }
+        main.container {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+        }
+        .table-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            font-size: 1.15rem;
+            margin-top: 2rem;
+        }
+        th, td {
+            padding: 18px 18px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #252525;
+            background: none;
+            border-bottom: 2.5px solid #e6ebf5;
+        }
+        tr:not(:last-child) td {
+            border-bottom: 1.5px solid #e6ebf5;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tbody tr:hover {
+            background: #f5faff;
+            transition: background 0.15s;
+        }
+        @media (max-width: 900px) {
+            th, td { padding: 10px 8px; }
+        }
+        @media (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            th { border: none; }
+            tr:not(:last-child) td { border-bottom: none; }
+            td { padding: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Work Logs</h1>
+    <a href="/dashboard/accountant" role="button" class="outline">← Back to Dashboard</a>
+</header>
+
+<main class="container">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Worker</th>
+                <th>Project</th>
+                <th>Date</th>
+                <th>Hours</th>
+                <th>Hourly Rate</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="workLog : ${allWorkLogs}">
+                <td th:text="${workLog.user.name}">Worker Name</td>
+                <td th:text="${workLog.project.name}">Project Name</td>
+                <td th:text="${workLog.date}">Date</td>
+                <td th:text="${workLog.hours}">Hours</td>
+                <td th:text="${workLog.user.hourlyRate}">Hourly Rate</td>
+                <td th:text="${workLog.status}">Status</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>

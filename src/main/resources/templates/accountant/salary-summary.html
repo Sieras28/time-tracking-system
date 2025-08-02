@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Salary Summary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.05);}
+        h1 { margin: 0; font-size: 2rem; }
+        main.container { max-width: 1000px; margin: 2.5rem auto;}
+        table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; font-size: 1.1rem; margin-top: 2rem;}
+        th, td { padding: 16px 14px; text-align: left; vertical-align: middle;}
+        th { font-size: 1.1rem; font-weight: 700; color: #252525; background: none; border-bottom: 2.5px solid #e6ebf5;}
+        tr:not(:last-child) td { border-bottom: 1.5px solid #e6ebf5;}
+        tr:last-child td { border-bottom: none;}
+        tbody tr:hover { background: #f5faff; transition: background 0.15s;}
+    </style>
+</head>
+<body>
+<header>
+    <h1>Salary Summary</h1>
+    <a href="/dashboard/accountant" role="button" class="outline">← Back to Dashboard</a>
+</header>
+<main class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>Worker</th>
+            <th>Hourly Rate</th>
+            <th>Total Hours</th>
+            <th>Total Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- show “No data” if list is empty -->
+        <tr th:if="${summaries.empty}">
+            <td colspan="4" style="text-align:center;">No data</td>
+        </tr>
+
+        <!-- iterate over SalarySummaryDTO -->
+        <tr th:each="s : ${summaries}">
+            <td th:text="${s.workerName}">Worker Name</td>
+            <td th:text="${#numbers.formatDecimal(s.hourlyRate,1,2)}">0.00</td>
+            <td th:text="${s.totalHours}">0</td>
+            <td th:text="${#numbers.formatDecimal(s.totalSalary,1,2)}">$0.00</td>
+        </tr>
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <td colspan="3" style="text-align:right;font-weight:700;">Grand Total:</td>
+            <td th:text="${#numbers.formatDecimal(grandTotal,1,2)}">$0.00</td>
+        </tr>
+        </tfoot>
+
+    </table>
+</main>
+</body>
+</html>
