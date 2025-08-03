@@ -25,7 +25,6 @@ public class User {
     private String surname;
     private String status;
 
-    // Reference to WorkLogs related to the user
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<WorkLog> workLogs;
 }
