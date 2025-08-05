@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        body {
+            background-color: #f9fafb;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .dashboard {
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+        .welcome {
+            padding: 1.5rem 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+        }
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .card {
+            padding: 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card a {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Admin Dashboard</h1>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="outline">Logout</button>
+    </form>
+</header>
+
+<main class="dashboard container">
+    <section class="welcome">
+        <h2>Welcome, <span th:text="${username}">Admin</span>!</h2>
+        <p>Here’s what you can do as an administrator:</p>
+    </section>
+
+    <section class="actions">
+        <div class="card">
+            <h3>Manage Workers</h3>
+            <p>Create, update, or remove workers from the system.</p>
+            <a href="/admin/workers" role="button" class="primary">Manage Workers</a>
+        </div>
+
+        <div class="card">
+            <h3>Manage Projects</h3>
+            <p>Create, update, or remove projects for your organization.</p>
+            <a href="/admin/projects" role="button" class="secondary">Manage Projects</a>
+        </div>
+
+        <div class="card">
+            <h3>Approve Work Entries</h3>
+            <p>Review and approve or reject work logs submitted by workers.</p>
+            <a href="/admin/worklogs/pending" role="button" class="contrast">Approve Work Entries</a>
+        </div>
+
+        <div class="card">
+            <h3>View Summaries</h3>
+            <p>See summaries and statistics per worker or project.</p>
+            <a href="/admin/summaries" role="button">View Summaries</a>
+        </div>
+
+        <div class="card">
+            <h3>Export Reports</h3>
+            <p>Export reports for clients in a downloadable format.</p>
+            <a href="/admin/reports" role="button">Export Reports</a>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

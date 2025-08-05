@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#fields.hasErrors()} ? 'Fix Errors' :
+                     (${worker.id} == null) ? 'Add Worker' : 'Edit Worker'">Worker Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        header {display:flex;justify-content:space-between;align-items:center;
+            padding:1rem 2rem;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+        h1 {margin:0;font-size:1.5rem}
+        form {max-width:600px;margin:2rem auto}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 th:text="${worker.id == null} ? 'Add Worker' : 'Edit Worker'">Worker</h1>
+    <a href="/admin/workers" role="button" class="outline">← Back</a>
+</header>
+
+<main class="container">
+    <form th:action="@{${worker.id == null} ? '/admin/workers/add'
+                           : '/admin/workers/' + ${worker.id} + '/edit'}"
+          th:object="${worker}" method="post">
+        <label>Name
+            <input th:field="*{name}" placeholder="First name" required>
+        </label>
+
+        <label>Surname
+            <input th:field="*{surname}" placeholder="Last name" required>
+        </label>
+
+        <label>Role
+            <select th:field="*{role}" required>
+                <option value="" hidden>Select role</option>
+                <option>ADMIN</option>
+                <option>WORKER</option>
+                <option>ACCOUNTANT</option>
+            </select>
+        </label>
+
+        <label>Status
+            <select th:field="*{status}" required>
+                <option value="" hidden>Select status</option>
+                <option>ACTIVE</option>
+                <option>INACTIVE</option>
+            </select>
+        </label>
+
+        <button type="submit" class="primary">Save</button>
+    </form>
+</main>
+
+</body>
+</html>
