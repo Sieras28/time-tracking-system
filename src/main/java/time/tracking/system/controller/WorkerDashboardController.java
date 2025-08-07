@@ -48,7 +48,6 @@ public class WorkerDashboardController {
     @GetMapping("/worker/worklogs")
     public String showWorkerWorkLogs(Model model, Principal principal) {
         String username = principal.getName();
-
         Optional<User> userOptional = userRepository.findByUsername(username);
         User user = userOptional.orElseThrow(() -> new IllegalArgumentException("User not found with username: " + username));
         List<WorkLog> myWorkLogs = workLogRepository.findByUser(user);
@@ -56,7 +55,7 @@ public class WorkerDashboardController {
         model.addAttribute("user", user);
         model.addAttribute("myWorkLogs", myWorkLogs);
 
-        return "worker/worker-worklogs"; // This should match your Thymeleaf template location (worker/worklogs.html)
+        return "worker/worker-worklogs";
     }
 
 }

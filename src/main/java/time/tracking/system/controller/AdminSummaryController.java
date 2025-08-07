@@ -27,12 +27,12 @@ public class AdminSummaryController {
     @Autowired
     private WorkLogRepository workLogRepository;
 
-    // This will show the summaries page with worker and project dropdown options
+
     @GetMapping("/admin/summaries")
     public String workerSummaryPage(@RequestParam(required = false) Long workerId,
                                     Model model) {
 
-        // always need the list for the <select>
+
         List<User> workers = userRepository.findByRole("WORKER");
         model.addAttribute("workers", workers);
 
@@ -53,12 +53,10 @@ public class AdminSummaryController {
             model.addAttribute("approvedLogs", approvedLogs);
             model.addAttribute("pendingLogs", pendingLogs);
         }
-        // same view for both states
+
         return "admin/summaries";
     }
 
-
-    // View summaries per Worker when selected from the dropdown
     @GetMapping("/admin/summaries/worker")
     public String viewWorkerSummary(@RequestParam Long workerId, Model model) {
         User worker = userRepository.findById(workerId)
@@ -66,7 +64,6 @@ public class AdminSummaryController {
 
         List<WorkLog> workLogs = workLogRepository.findByUser(worker);
 
-        // Calculating total hours worked and number of approved work logs
         int totalHours = 0;
         int approvedLogs = 0;
         int pendingLogs = 0;
@@ -85,11 +82,9 @@ public class AdminSummaryController {
         model.addAttribute("approvedLogs", approvedLogs);
         model.addAttribute("pendingLogs", pendingLogs);
         model.addAttribute("workLogs", workLogs);
-
-        return "worker_summarrerery";
+        return "worker_summary";
     }
 
-    // View summaries per Project
     @GetMapping("/admin/summaries/project/{projectId}")
     public String viewProjectSummary(@PathVariable Long projectId, Model model) {
         Project project = projectRepository.findById(projectId)
@@ -97,7 +92,6 @@ public class AdminSummaryController {
 
         List<WorkLog> workLogs = workLogRepository.findByProject(project);
 
-        // Calculating total hours worked and number of approved work logs for the project
         int totalHours = 0;
         int approvedLogs = 0;
         int pendingLogs = 0;

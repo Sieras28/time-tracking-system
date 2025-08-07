@@ -33,18 +33,6 @@ public class ViewController {
         return "login";
     }
 
-//    @GetMapping("/worker/dashboard")
-//    public String studentDash(Principal principal, Model m) {
-//        m.addAttribute("username", principal.getName());
-//        return "worker/dashboard";
-//    }
-
-
-//    @GetMapping("/dashboard/accountant")
-//    public String leaderDash(Principal principal, Model m) {
-//        m.addAttribute("username", principal.getName());
-//        return "leader-dashboard";
-//    }
 
     @GetMapping("/dashboard/admin")
     public String adminDash(Principal principal, Model m) {

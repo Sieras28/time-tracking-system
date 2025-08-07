@@ -29,20 +29,6 @@ public class WorkLogController {
     private ProjectRepository projectRepository;
 
 
-//    @GetMapping("/add")
-//    public String showAddWorkLogForm(Model model, Principal principal) {
-//        String username = principal.getName();
-//        User user = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-//
-//        WorkLog workLog = new WorkLog();
-//        workLog.setUser(user); // Assign the logged-in user to the work log
-//
-//        model.addAttribute("workLog", workLog);
-//        return "worker/worklog_add"; // Thymeleaf template for adding work logs
-//    }
-
-    // Handle Work Log Submission
     @PostMapping("/add")
     public String addWorkLog(@ModelAttribute WorkLog workLog, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
@@ -68,16 +54,14 @@ public class WorkLogController {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         WorkLog workLog = new WorkLog();
-        workLog.setUser(user); // Associate the logged-in user with the work log
+        workLog.setUser(user);
 
-        // Retrieve projects associated with the logged-in user
         List<Project> myProjects = projectRepository.findAll();
 
-        // Add work log and projects to the model
         model.addAttribute("workLog", workLog);
         model.addAttribute("myProjects", myProjects);
 
-        return "worker/worklog_add";  // Thymeleaf template for adding work logs
+        return "worker/worklog_add";
     }
 
 }

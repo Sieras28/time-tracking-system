@@ -17,7 +17,6 @@ public class AdminWorkLogController {
     @Autowired
     private WorkLogRepository workLogRepository;
 
-    // Display all pending work logs for review
     @GetMapping("/pending")
     public String showPendingWorkLogs(Model model) {
         List<WorkLog> pendingWorkLogs = workLogRepository.findByStatus("PENDING");
@@ -25,7 +24,6 @@ public class AdminWorkLogController {
         return "admin/approve_worklogs";
     }
 
-    // Approve a work log
     @PostMapping("/{id}/approve")
     public String approveWorkLog(@PathVariable Long id) {
         WorkLog workLog = workLogRepository.findById(id)
@@ -40,8 +38,8 @@ public class AdminWorkLogController {
     public String rejectWorkLog(@PathVariable Long id) {
         WorkLog workLog = workLogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid work log Id:" + id));
-        workLog.setStatus("REJECTED");  // Mark the status as rejected
-        workLogRepository.save(workLog); // Save the changes
-        return "redirect:/admin/worklogs/pending"; // Redirect to the list of pending logs
+        workLog.setStatus("REJECTED");
+        workLogRepository.save(workLog);
+        return "redirect:/admin/worklogs/pending";
     }
 }

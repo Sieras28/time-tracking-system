@@ -15,14 +15,12 @@ public class AdminProjectController {
     @Autowired
     private ProjectRepository projectRepository;
 
-    /* ---------- LIST ---------- */
     @GetMapping
     public String listProjects(Model model) {
         model.addAttribute("projects", projectRepository.findAll());
         return "admin/projects";
     }
 
-    /* ---------- ADD ---------- */
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("project", new Project());
@@ -39,7 +37,7 @@ public class AdminProjectController {
         return "redirect:/admin/projects";
     }
 
-    /* ---------- EDIT ---------- */
+
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
         Project project = projectRepository.findById(id)
@@ -60,7 +58,7 @@ public class AdminProjectController {
         return "redirect:/admin/projects";
     }
 
-    /* ---------- DELETE ---------- */
+
     @PostMapping("/{id}/delete")
     public String deleteProject(@PathVariable Long id) {
         projectRepository.deleteById(id);

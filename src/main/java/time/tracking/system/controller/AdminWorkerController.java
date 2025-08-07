@@ -22,10 +22,8 @@ public class AdminWorkerController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @GetMapping
     public String listWorkers(Model model) {
-        // Fetch users with the role "WORKER"
         List<User> workers = userRepository.findByRole("WORKER");
         model.addAttribute("workers", workers);
         return "admin/workers";
@@ -65,8 +63,6 @@ public class AdminWorkerController {
         if (result.hasErrors()) {
             return "admin/worker_form";
         }
-
-
         User dbUser = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
