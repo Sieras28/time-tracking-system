@@ -14,8 +14,6 @@ A simple, role-based time tracking application for small teams or consultancies,
 - [How to Use](#how-to-use)
 - [Database Access](#database-access)
 - [Project Structure](#project-structure)
-- [Known Limitations](#known-limitations)
-- [License](#license)
 
 ---
 
@@ -135,20 +133,4 @@ This Time Tracking System was built to let organizations easily record, approve,
 
 ---
 
-## Known Limitations
-
-- No email notifications or password reset.
-- File uploads (photos) are stored in memory only.
-- No persistent database; data resets on app restart.
-- No REST API or Swagger docs.
-- Not production-ready security; only for demo/testing.
-- Only basic input validation.
-
----
-
-## License
-
-MIT or as specified.
-
----
 
