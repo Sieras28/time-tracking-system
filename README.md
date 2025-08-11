@@ -42,7 +42,7 @@ This Time Tracking System was built to let organizations easily record, approve,
 - **Build:** Maven
 - **Styling:** [Pico.css](https://picocss.com/) via CDN
 
-> _No Docker, Swagger, Keycloak, or external dependencies. Testing not included as per requirements._
+
 
 ---
 
